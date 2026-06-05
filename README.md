@@ -63,7 +63,7 @@ NAME                               REFERENCE                                 TAR
 sausage-store-backend-report-hpa   Deployment/sausage-store-backend-report   cpu: 2%/70%   1         3         1          103m
 ```
 
-[VPA](sausage-store-chart/charts/backend/templates/deployment.yaml#90):
+[VPA](sausage-store-chart/charts/backend/templates/deployment.yaml#L90):
 ```
 > kubectl get vpa -n $NAMESPACE
 NAME                        MODE   CPU   MEM     PROVIDED   AGE
@@ -71,7 +71,7 @@ sausage-store-backend-vpa   Off    35m   256Mi   True       105m
 ```
 
 LivenessProbe для backend:
-- [values.yaml](sausage-store-chart/values.yaml#68):
+- [values.yaml](sausage-store-chart/values.yaml#L68):
     ```
     livenessProbe:
         httpGet:
@@ -80,7 +80,7 @@ LivenessProbe для backend:
         initialDelaySeconds: 90
         periodSeconds: 10
     ```
-- [deployment.yaml](sausage-store-chart/charts/backend/templates/deployment.yaml#72):
+- [deployment.yaml](sausage-store-chart/charts/backend/templates/deployment.yaml#L72):
     ```
           livenessProbe:
     {{ toYaml .Values.livenessProbe | indent 12 }}
@@ -88,9 +88,9 @@ LivenessProbe для backend:
 
 ### 5. Стратегии деплоя
 
-- backend - [RollingUpdate](sausage-store-chart/values.yaml#53)
-- backend-report - [Recreate](sausage-store-chart/values.yaml#93)
-- frontend - [Recreate](sausage-store-chart/values.yaml#18)
+- backend - [RollingUpdate](sausage-store-chart/values.yaml#L53)
+- backend-report - [Recreate](sausage-store-chart/values.yaml#L93)
+- frontend - [Recreate](sausage-store-chart/values.yaml#L18)
 
 Поднятые поды:
 ```
