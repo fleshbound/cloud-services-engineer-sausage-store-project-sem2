@@ -88,14 +88,14 @@ jobs:
 
         - name: Add Nexus Helm repo
           run: |
-            helm repo add nexus ${{ env.NEXUS_HELM_REPO_URL }} \
+            helm repo add nexus ${{ env.NEXUS_HELM_REPO }} \
               --username ${{ env.NEXUS_HELM_REPO_USER }} \
               --password ${{ env.NEXUS_HELM_REPO_PASSWORD }}
             helm repo update
         - name: Push chart to Nexus
           run: |
             curl -v -u ${{ env.NEXUS_HELM_REPO_USER }}:${{ env.NEXUS_HELM_REPO_PASSWORD }} \
-            --upload-file sausage-store-${{ env.CHART_VERSION }}.tgz ${{ env.NEXUS_HELM_REPO_URL }}
+            --upload-file sausage-store-${{ env.CHART_VERSION }}.tgz ${{ env.NEXUS_HELM_REPO }}
 
   # Деплоим приложения в кластер Kubernetes с помощью helm-чарт
   deploy_helm_chart_to_kubernetes:
