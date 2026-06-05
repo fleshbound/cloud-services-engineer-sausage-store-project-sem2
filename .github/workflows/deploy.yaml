@@ -10,7 +10,7 @@ env:
   NEXUS_HELM_REPO: ${{ secrets.NEXUS_HELM_REPO }}
   NEXUS_HELM_REPO_USER: ${{ secrets.NEXUS_HELM_REPO_USER }}
   NEXUS_HELM_REPO_PASSWORD: ${{ secrets.NEXUS_HELM_REPO_PASSWORD }}
-  SAUSAGE_STORE_NAMESPACE: YOUR_NAMESPACE
+  SAUSAGE_STORE_NAMESPACE: ${{ secrets.NAMESPACE }}
   KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
   CHART_VERSION: "0.1.1" 
 
@@ -119,6 +119,6 @@ jobs:
           run: |
             envsubst < ./sausage-store-chart/values.yaml > ./values-resolved.yaml
             helm upgrade --install sausage-store nexus/sausage-store \
-              --namespace ${{ env.NAMESPACE }} \
+              --namespace ${{ env.SAUSAGE_STORE_NAMESPACE }} \
               --values ./values-resolved.yaml \
               --kubeconfig ./kubeconfig
