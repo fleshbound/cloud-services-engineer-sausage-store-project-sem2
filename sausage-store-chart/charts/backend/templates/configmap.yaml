@@ -9,4 +9,5 @@ data:
   postgres_password: {{ .Values.env.postgresPassword }}
   report_path: {{ .Values.env.reportPath }}
   log_path: {{ .Values.env.logPath }}
+  vault_enabled: "false"
   

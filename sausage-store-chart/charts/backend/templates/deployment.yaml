@@ -59,6 +59,11 @@ spec:
                 configMapKeyRef:
                   name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
                   key: log_path
+            - name: SPRING_CLOUD_VAULT_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
+                  key: vault_enabled
           resources:
 {{ toYaml .Values.resources | indent 12 }} 
           ports:
