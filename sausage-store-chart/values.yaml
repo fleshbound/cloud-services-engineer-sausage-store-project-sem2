@@ -19,7 +19,7 @@ frontend:
   service:
     port: 80
   ingress:
-    host: r-devops-magistracy-project-2sem-995194225.students-projects.ru
+    host: front-r-devops-magistracy-project-2sem-995194225.2sem.students-projects.ru
     path: /
     pathType: Prefix
   containerPort: 80
