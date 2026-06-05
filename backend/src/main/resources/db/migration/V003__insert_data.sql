@@ -13,3 +13,14 @@ INSERT INTO orders (id, status, date_created)
 INSERT INTO order_product (quantity, order_id, product_id)
     SELECT floor(1+random()*50)::int, i, 1 + floor(random()*6)::int % 6
     FROM generate_series(1, 10000) s(i);
+
+
+SELECT setval(
+  pg_get_serial_sequence('orders', 'id'),
+  (SELECT MAX(id) FROM orders)
+);
+
+SELECT setval(
+  pg_get_serial_sequence('product', 'id'),
+  (SELECT MAX(id) FROM product)
+);
