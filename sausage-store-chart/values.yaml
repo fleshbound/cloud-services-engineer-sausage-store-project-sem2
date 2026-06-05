@@ -18,8 +18,10 @@ frontend:
     type: Recreate
   service:
     port: 80
+  global:
+    imagePullPolicy: Always
   ingress:
-    host: front-r-devops-magistracy-project-2sem-995194225.2sem.students-projects.ru
+    host: front-fleshbound.2sem.students-projects.ru
     path: /
     pathType: Prefix
   containerPort: 80
@@ -30,8 +32,8 @@ frontend:
       cpu: "25m"
     limits:
       memory: "128Mi"
-      cpu: "200m"
-  nginxConf: default.conf
+      cpu: "50m"
+  nginxConf: nginx.conf
 
 backend:
   annotations:
@@ -51,17 +53,17 @@ backend:
   strategy:    
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+       maxSurge: 25%
+       maxUnavailable: 25%
   image: ${DOCKER_USER}/sausage-backend:latest
   imagePullPolicy: Always
   resources:
     requests:
       memory: "128Mi"
-      cpu: "100m"
+      cpu: "200m"
     limits:
-      memory: "512Mi"
-      cpu: "500m"
+      memory: "256Mi"
+      cpu: "200m"
   containerPort: 8080
   livenessProbe:
     httpGet:
@@ -74,13 +76,15 @@ backend:
       updateMode: "Off"
     resourcePolicy:
       containerPolicies:
-        - containerName: backend
+        - containerName: "*"
+          mode: "Auto"
+          controlledResources: ["cpu", "memory"]
           minAllowed:
-            cpu: "100m"
-            memory: "256Mi"
+            cpu: 0m
+            memory: 0Mi
           maxAllowed:
-            cpu: 1
-            memory: "512Mi"
+            cpu: 200m
+            memory: 256Mi
 
 backend-report:
   replicas: 1
